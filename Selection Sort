@@ -1,0 +1,64 @@
+// FUNCTION: Returns none, function to swap values of two indices in an array
+//Helper function of selectionSort.
+var swap = function(array, firstIndex, secondIndex) {
+    var temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
+};
+
+// FUNCTION: Returns index of minimum including the start index. 
+// Helper function of selectionSort.
+var indexOfMinimum = function(array, startIndex) {
+
+    var minValue = array[startIndex];
+    var minIndex = startIndex;
+
+    for(var i = minIndex + 1; i < array.length; i++) {
+        if(array[i] < minValue) {
+            minIndex = i;
+            minValue = array[i];
+        }
+    } 
+    return minIndex;
+}; 
+
+// FUNCTION: Selects the smallest element in the array and puts it in index 0 while putting the first index's value in the smallest element's position. It then finds the second smallest element and puts it in index 1. Process repeats until array is in ascending order. 
+// Helper function of sortSlow.
+
+var selectionSort = function(array) {
+    for (var x = 0; x< array.length; x++) {
+        var a = indexOfMinimum(array, x);
+        swap(array, x, a);
+    }
+
+};
+
+// FUNCTION: displays text. 
+//Helper function of sortSlow.
+var displayArray = function(array, x, y) {
+    textFont(createFont("monospace"));
+    fill(10, 1, 1);
+    text(array, x, y, 500, 500);
+};
+
+// FUNCTION: performs selection sort, and displays array after each sorting 
+var sortslow = function(array) {
+    // Display original array
+    displayArray(array, 30, 30);
+    for (var i = 0; i< array.length; i++) {
+        // Performs selection sort one time
+        var a = indexOfMinimum(array, i);
+        swap(array, i, a);
+        // Displays movement
+        strokeWeight(1);
+        line(30 + (a *17), (i+1)*30 + 10 , 30 + (i*16), (i+2)*30 -5);
+        strokeWeight(9);
+        point (30 + (i*16), (i+2)*30 -5);
+        // Displays sorted array after one sort
+        displayArray(array, 30, (i+2)*30);
+    }
+};
+
+// Example
+var array = [6, 11, 34, 9, 1, 10, 12, 7, 23];
+sortslow(array);
